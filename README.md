@@ -84,6 +84,10 @@ The stmscope.py accepts the following text commands from terminal:
 - set pv value  # set PV value.
 - up arrow      # repeat last command.
 ```
+Several commands can be combined together using semicolon (;) as separator:
+```
+>info; get version; info adc_sampletime
+```
 - Check, if board is alive:
 ```
 >info	# It should print list of device parameters. You can use info with parameter name to inquire on specific parameter, i.e. `info version`.
@@ -92,7 +96,7 @@ The stmscope.py accepts the following text commands from terminal:
 ## Communication with the board
 ```
 >get version
-{'version': {'MCU': 'STM32G431', 'soft': 'v1.0.2 2023-12-23', 'clock': 170000000, 'baudrate': 7372800}}
+{'version': {'MCU': 'STM32G431', 'soft': 'v1.0.4 2023-12-31', 'clock': 170000000, 'baudrate': 7372800}}
 >get adc_srate        # to correct time axis of the plot, just in case.
 >set adc_trig auto
 ```
@@ -104,7 +108,7 @@ The stmscope.py accepts the following text commands from terminal:
 ```
 ![STM32 Scope](docs/mcufec_wfg_shape_triangle.jpg)
 
-*Fig. 2. WFG is generating triangle waveform, auto-triggering.*
+*Fig. 2. WFG is generating triangle waveform on ADC1, auto-triggering.*
 ```
 >set adc_trig ADC1P
 ```
