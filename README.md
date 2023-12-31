@@ -1,5 +1,4 @@
-# stm32genscope.: general purpose analog/digital FrontEnd Controller, running on 
-NUCLEO-G431KB board.
+# General purpose analog/digital FrontEnd Controller, running on NUCLEO-G431KB board.
 Development, control, monitoring and data transfer of STM32 MCU boards.
 - Development platform: STM32CubeIDE.
 - Development language: C++.
@@ -32,35 +31,41 @@ The board configuration and pin assignment could be found [**here**](/stm32gensc
 - Click `File/New/STM32 Project`
 - Click `Board Selector`
 - Select NUCLEO-G431KB
-- Enter 'Project Name:' stm32genscope, `Targeted Language:` C++, `Finish`.
-- Click Project `Generate Code`. You may be asked to update firmware.
+- Enter in `Project Name:` stm32genscope, in `Targeted Language:` C++, click: `Finish`.
+- Click `Project/Generate Code`. You may be asked to update firmware.
 - Add the following code in main.c after /* USER CODE END WHILE */:
-      HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_8);
-      HAL_Delay(1000);
+```
+HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_8);
+HAL_Delay(1000);
+```
 - Click Run/Debug.
 - Click F8. The green LED should blink at 0.5 Hz.
 
 ## Converting to C++
 - In Project explorer: rename Core/Src/main.c to Core/Src/main.cpp
 - Make sure you have the following code in main.cpp after /* USER CODE END WHILE */:
-      HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_8);
-      HAL_Delay(500);
-- In Project explorer: click Convert to C++
-- Project/Clean. It should re-build everything and end up with
-- Click: Run/Debug.
-- Click: F8. The green LED should blink at 1 Hz.
+```
+HAL_GPIO_TogglePin(GPIOB,GPIO_PIN_8);
+HAL_Delay(500);
+```
+- In Project Explorer: click `Convert to C++`
+- Click: `Project/Clean`. It should re-build everything and end up with
+- Click: `Run/Debug`.
+- Click: `F8`. The green LED should blink at 1 Hz.
 
 ## Add user code for stm32genscope
 - Replace following project files with corresponding files from the git repository:
-```./stm32genscope.ioc
+```
+./stm32genscope.ioc
 ./Core/Src/main.cpp
-./Core/Inc/stm32genscope.h```
-- Click Project/Generate code. It will produce ./Core/Src/main.c, it need to be 
+./Core/Inc/stm32genscope.h
+```
+- Click: `Project/Generate code`. It will produce ./Core/Src/main.c, which need to be 
 removed as it will shadow our ./Core/Src/main.cpp
 - In Project Explorer: delete ./Core/Src/main.c.
-- Click: Project/Clean. It should re-build everything and it should not be errors in Console
-- Click: Run/Debug.
-- Click: F8 to run the board in debugging mode.
+- Click: `Project/Clean`. It should re-build everything and it should not be errors in Console
+- Click: `Run/Debug`.
+- Click: `F8` to run the board in debugging mode.
 
 # Quick Test
 - Connect Pulser Output TIM4_CH1 (PA11) to TrigADC input TIM1_CH1 (PA8).
