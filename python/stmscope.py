@@ -13,8 +13,7 @@ Expected the following message structure from STM32:
   char payload[4+4*NCONV]; //2048 is good for REPEATS=128
   }
 """
-#__version__ = 'v0.2.4 2023-11-13'# Repeat command in case of RX_overrun
-__version__ = 'v0.2.5 2023-12-18'# fix info adc_srate
+__version__ = 'v0.2.5 2024-04-16'# fix case when pargs.graph is no None 
 print(f'Version {__version__}')
 #TODO: nADC should affect which ADC are being read by the server.
 
@@ -247,13 +246,14 @@ def read_serial():
                 if pargs.graph is None or str(idx+1) in pargs.graph:
                     curve = pg.PlotCurveItem(pen=(idx,len(data)*1.3))
                     plot.addItem(curve)
-                    curves.append(curve)
+                    curves.append((idx,curve))
                     legend.addItem(curve, f'ADC{idx+1}')
             plot.resize(900,600)
-        for idx,curvrow in enumerate(zip(curves,data)):
-            #print(f'idx {idx} {pargs.graph is None or str(idx+1) in pargs.graph}')
-            if pargs.graph is None or str(idx+1) in pargs.graph:
-                curve,row = curvrow
+        for curveIdx,didxCurve in enumerate(curves):
+            dataIdx,curve = didxCurve
+            row = data[dataIdx]
+            #print(f'curveIdx {curveIdx} {pargs.graph is None or str(dataIdx+1) in pargs.graph}')
+            if pargs.graph is None or str(dataIdx+1) in pargs.graph:
                 curve.setData(x, row*pargs.yscale)
     except KeyboardInterrupt:
         print(' Interrupted')
